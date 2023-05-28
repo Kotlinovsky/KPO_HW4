@@ -1,0 +1,59 @@
+server:
+  port: 8080
+springdoc:
+  api-docs:
+    groups:
+      enabled: true
+    enabled: true
+logging:
+  level:
+    org.springframework.cloud.gateway: TRACE
+    reactor.netty.http.client: TRACE
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: auth_docs_api
+          order: 1
+          uri: http://localhost:8081
+          predicates:
+            - Path=/auth/v3/api-docs/**
+          filters:
+            - StripPrefix=1
+        - id: auth_api
+          order: 2
+          uri: http://localhost:8081
+          predicates:
+            - Path=/auth/**
+        - id: orders_docs_api
+          order: 3
+          uri: http://localhost:8082
+          predicates:
+            - Path=/orders/v3/api-docs/**
+          filters:
+            - StripPrefix=1
+        - id: dishes_api
+          order: 4
+          uri: http://localhost:8082
+          predicates:
+            - Path=/dishes
+        - id: dish_api
+          order: 5
+          uri: http://localhost:8082
+          predicates:
+            - Path=/dish/**
+        - id: menu_api
+          order: 6
+          uri: http://localhost:8082
+          predicates:
+            - Path=/menu
+        - id: orders_api
+          order: 7
+          uri: http://localhost:8082
+          predicates:
+            - Path=/orders
+        - id: order_api
+          order: 8
+          uri: http://localhost:8082
+          predicates:
+            - Path=/order/**

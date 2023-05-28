@@ -1,0 +1,6 @@
+server:
+  port: 8081
+springdoc:
+  swagger-ui:
+    config-url: /auth/v3/api-docs/swagger-config
+    oauth2-redirect-url: /swagger-ui/oauth2-redirect.html
